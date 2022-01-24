@@ -30,10 +30,3 @@
 *.exe
 *.out
 *.app
-
-#private
-*/.vscode
-*/.vscode/*.json
-.vscode
-.vscode/*.json
-.vscode/c_cpp_properties.json
