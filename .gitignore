@@ -31,6 +31,8 @@
 *.out
 *.app
 
-#private 
+#private
+*/.vscode
+*/.vscode/*
 .vscode
 .vscode/*
