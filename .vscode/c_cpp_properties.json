@@ -4,7 +4,7 @@
             "name": "Linux On Windows",
             "includePath": [
                 "${workspaceFolder}/**",
-                "E:\\msys2\\usr\\include\\**",
+                "E:\\msys2\\usr\\include\\**"
             ],
             "defines": [],
             "compilerPath": "E:\\msys2\\usr\\bin\\gcc.exe",
