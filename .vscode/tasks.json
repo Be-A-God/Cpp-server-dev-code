@@ -1,0 +1,49 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "C",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "${file}",
+                "-std=c17",
+                "-Wall",
+                "-o",
+                "${fileBasenameNoExtension}.out"
+            ],
+        },
+
+        {
+            "label": "C++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-std=c++2a",
+                "-Wall",
+                "-o",
+                "${fileBasenameNoExtension}.out"
+            ],
+        },
+
+        {
+            "label": "opencv",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-std=c++11",
+                "-Wall",
+                "-o",
+                "${fileBasenameNoExtension}.out",
+                "`pkg-config --cflags --libs opencv4`",
+            ]
+        }
+    ]
+}
