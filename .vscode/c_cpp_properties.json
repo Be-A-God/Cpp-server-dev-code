@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Linux On Windows",
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/**",
@@ -11,9 +11,9 @@
                 "/usr/msp430/include/**"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "E:\\msys2\\usr\\bin\\gcc.exe",
             "compilerArgs": [
-                "-std=c18",
+                "-std=c17",
                 "-std=c++2a",
                 "-Wall"
             ],
