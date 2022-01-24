@@ -13,7 +13,7 @@
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
-            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerPath": "E:\\msys2\\usr\\bin\\gdb.exe",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -24,14 +24,6 @@
                     "ignoreFailures": true
                 }
             ]
-        },
-        {
-            "name": "PlatformIO Debugger",
-            "request": "launch",
-            "type": "platformio-debug",
-            "preLaunchTask": "PlatformIO",
-            "executable": ".pio/build/myenv/firmware.elf",
-            "toolchainBinDir": "/usr/local/bin"
         },
 
         {
@@ -44,7 +36,7 @@
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerPath": "E:\\msys2\\usr\\bin\\gdb.exe",
             "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
@@ -66,7 +58,7 @@
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerPath": "E:\\msys2\\usr\\bin\\gdb.exe",
             "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [

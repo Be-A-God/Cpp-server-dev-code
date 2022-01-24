@@ -4,11 +4,7 @@
             "name": "Linux On Windows",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/**",
-                "/usr/local/include/**",
-                "/usr/arm-linux-gnueabihf/include/**",
-                "/usr/arm-linux-gnueabi/include/**",
-                "/usr/msp430/include/**"
+                "E:\\msys2\\usr\\include\\**",
             ],
             "defines": [],
             "compilerPath": "E:\\msys2\\usr\\bin\\gcc.exe",
