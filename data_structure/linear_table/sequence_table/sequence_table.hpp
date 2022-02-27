@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 
+// TODO: 安全优化；全类型支持
 template <class data_type>
 concept type_ruler = std::is_same<data_type, int>::value ||
                      std::is_same<data_type, char>::value ||
