@@ -32,10 +32,10 @@ requires(std::is_same<elem_type, int>::value ||
   singly_linked_list<elem_type> &operator=(singly_linked_list<elem_type> &&) =
       delete;
 
-  const Node<elem_type> *find_elem const(elem_type value);
-  const Node<elem_type> *find_countdown_k const(int k);
-  const Node<elem_type> *find_middle const();
-  elem_type get_elem const(int pos);
+  const Node<elem_type> *find_elem(elem_type value) const;
+  const Node<elem_type> *find_countdown_k(int k) const;
+  const Node<elem_type> *find_middle() const;
+  elem_type get_elem(int pos) const;
   bool create_head_plug();
   bool create_tail_plug();
   bool delete_repeat();
@@ -44,9 +44,9 @@ requires(std::is_same<elem_type, int>::value ||
   bool insert_elem(int pos, elem_type value);
   bool delete_elem(elem_type value);
   bool delete_elem(int pos);
-  bool is_empty const();
-  int get_length const();
-  void travel_list const();
+  bool is_empty() const;
+  int get_length() const;
+  void travel_list() const;
   //   void merge_order_list(singly_linked_list<elem_type> &other_list);
 
  private:
@@ -90,8 +90,8 @@ singly_linked_list<elem_type>::~singly_linked_list() {
 }
 
 template <class elem_type>
-const Node<elem_type> *singly_linked_list<elem_type>::find_elem const(
-    elem_type value) {
+const Node<elem_type> *singly_linked_list<elem_type>::find_elem(
+    elem_type value) const {
   if (head_node_point->next) {
     Node<elem_type> *temp_ptr = head_node_point->next;
 
