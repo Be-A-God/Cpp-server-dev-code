@@ -19,8 +19,11 @@ struct Node {
 };
 
 template <class elem_type>
-requires(std::is_same<elem_type, int>::value ||
-         std::is_same<elem_type, char>::value) class singly_linked_list final {
+concept type_limit =
+    std::is_same<elem_type, int>::value || std::is_same<elem_type, char>::value;
+
+template <class elem_type>
+requires type_limit<elem_type> class singly_linked_list final {
  public:
   singly_linked_list();
   ~singly_linked_list();
@@ -40,7 +43,7 @@ requires(std::is_same<elem_type, int>::value ||
   void reverse_list();
   void empty_list();
   void insert_elem(int pos, elem_type value);
-  void delete_elem(elem_type value);
+  void delete_elem(elem_type value, char null = 0);
   void delete_elem(int pos);
   void travel_list() const;
   void create_head_plug();
@@ -95,7 +98,7 @@ const Node<elem_type> *singly_linked_list<elem_type>::find_elem(
     temp_ptr = temp_ptr->next;
   }
 
-  return temp_ptr ? temp_ptr : []() -> {
+  return temp_ptr ? temp_ptr : []() -> const Node<elem_type> * {
     std::cout << "查找元素失败：链表中没有该元素值！" << std::endl;
     return nullptr;
   };
@@ -201,24 +204,25 @@ void singly_linked_list<elem_type>::delete_abs_repeat() {
     }
   }
 
-  return index ? []() -> { std::cout << "链表为空！无重复元素！" << std::endl; }
-               : [&]() mutable -> {
-                   pre_ptr = head_node_point;
-                   int *flag = new int[index + 1]{0};
-                   while (pre_ptr->next) {
-                     if (!flag[pre_ptr->next->data]) {
-                       flag[pre_ptr->next->data] = 1;
-                       pre_ptr = pre_ptr->next;
-                     } else {
-                       del_ptr = pre_ptr->next;
-                       pre_ptr->next = del_ptr->next;
-                       del_ptr->next = nullptr;
-                       delete del_ptr;
-                     }
-                   }
-                   delete[] flag;
-                   std::cout << "删除重复元素完成！" << std::endl;
-                 };
+  return index
+         ? []() -> void { std::cout << "链表为空！无重复元素！" << std::endl; }
+         : [&]() mutable -> void {
+             pre_ptr = head_node_point;
+             int *flag = new int[index + 1]{0};
+             while (pre_ptr->next) {
+               if (!flag[pre_ptr->next->data]) {
+                 flag[pre_ptr->next->data] = 1;
+                 pre_ptr = pre_ptr->next;
+               } else {
+                 del_ptr = pre_ptr->next;
+                 pre_ptr->next = del_ptr->next;
+                 del_ptr->next = nullptr;
+                 delete del_ptr;
+               }
+             }
+             delete[] flag;
+             std::cout << "删除重复元素完成！" << std::endl;
+           };
 }
 
 template <class elem_type>
@@ -277,7 +281,7 @@ void singly_linked_list<elem_type>::insert_elem(int pos, elem_type value) {
 }
 
 template <class elem_type>
-void singly_linked_list<elem_type>::delete_elem(elem_type value) {
+void singly_linked_list<elem_type>::delete_elem(elem_type value, char null) {
   Node<elem_type> *cur_ptr = head_node_point->next;
   Node<elem_type> *pre_ptr = nullptr;
 
