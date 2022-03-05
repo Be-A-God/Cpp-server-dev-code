@@ -59,7 +59,6 @@ singly_linked_list<elem_type>::singly_linked_list() : head_node_point(nullptr) {
 
   if (!head_node_point) {
     std::cout << "链表创建失败！" << std::endl;
-    // ~singly_linked_list();
     exit(1);
   }
 
@@ -90,24 +89,12 @@ singly_linked_list<elem_type>::~singly_linked_list() {
 template <class elem_type>
 const Node<elem_type> *singly_linked_list<elem_type>::find_elem(
     elem_type value) const {
-  // if (head_node_point->next) {
-  //   Node<elem_type> *temp_ptr = head_node_point->next;
-
-  //   while (temp_ptr) {
-  //     if (temp_ptr->data == value) {
-  //       return temp_ptr;
-  //     }
-  //     temp_ptr = temp_ptr->next;
-  //   }
-  // }
-  // std::cout << "查找元素失败：链表中没有该元素值！" << std::endl;
-  // return nullptr;
-
-  // 优化
   Node<elem_type> *temp_ptr = head_node_point->next;
+
   while (temp_ptr && temp_ptr->data != value) {
     temp_ptr = temp_ptr->next;
   }
+
   return temp_ptr ? temp_ptr : []() -> {
     std::cout << "查找元素失败：链表中没有该元素值！" << std::endl;
     return nullptr;
@@ -120,7 +107,6 @@ const Node<elem_type> *singly_linked_list<elem_type>::find_countdown_k(
   Node<elem_type> *fast_ptr = head_node_point->next;
   Node<elem_type> *slow_ptr = fast_ptr;
 
-  // 更简洁的做法
   while (fast_ptr->next) {
     if (--k <= 0) {
       slow_ptr = slow_ptr->next;
@@ -128,18 +114,6 @@ const Node<elem_type> *singly_linked_list<elem_type>::find_countdown_k(
     fast_ptr = fast_ptr->next;
   }
   return k > 0 ? nullptr : slow_ptr;
-
-  // for (int i = 1; fast_ptr && i < k; i++) {
-  //   fast_ptr = fast_ptr->next;
-  // }
-
-  // return !fast_ptr ? fast_ptr : [&]() mutable -> Node<elem_type> * {
-  //   while (fast_ptr->next) {
-  //     fast_ptr = fast_ptr->next;
-  //     slow_ptr = slow_ptr->next;
-  //   }
-  //   return slow_ptr;
-  // };
 }
 
 template <class elem_type>
@@ -162,20 +136,6 @@ const Node<elem_type> *singly_linked_list<elem_type>::find_middle() const {
 
 template <class elem_type>
 elem_type singly_linked_list<elem_type>::get_elem(int pos) const {
-  // if (pos <= 0 || !head_node_point->next) {
-  //   std::cout << "链表不存在该位置！" << std::endl;
-  //   return -1;
-  // }
-
-  // Node<elem_type> *temp_ptr = head_node_point;
-
-  // while (temp_ptr->next && --pos >= 0) {
-  //   temp_ptr = temp_ptr->next;
-  // }
-
-  // return pos > 0 ? nullptr : temp_ptr;
-
-  // 优化
   int i = 1;
   Node<elem_type> *cur_ptr = head_node_point->next;
 
