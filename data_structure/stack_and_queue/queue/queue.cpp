@@ -18,6 +18,7 @@ queue::queue() {
     exit(-1);
   }
   my_queue.front = my_queue.rear = 0;
+  std::cout << "队列创建成功！（调用默认构造函数）" << std::endl;
 }
 
 queue::queue(const queue& other) {
@@ -29,6 +30,8 @@ queue::queue(const queue& other) {
     my_queue.base[front] = other.my_queue.base[front];
     front = (front + 1) % full_size;
   }
+
+  std::cout << "队列创建成功！（调用复制构造函数）" << std::endl;
 }
 
 queue::queue(queue&& other) {
@@ -36,6 +39,8 @@ queue::queue(queue&& other) {
   my_queue.front = other.my_queue.front;
   my_queue.rear = other.my_queue.rear;
   other.my_queue.base = nullptr;
+
+  std::cout << "队列创建成功！（调用移动构造函数）" << std::endl;
 }
 
 queue& queue::operator=(const queue& other) {
@@ -46,6 +51,8 @@ queue& queue::operator=(const queue& other) {
     my_queue.base[front] = other.my_queue.base[front];
     front = (front + 1) % full_size;
   }
+
+  std::cout << "队列赋值完成！（调用复制赋值运算符）" << std::endl;
 
   return *this;
 }
@@ -59,6 +66,8 @@ queue& queue::operator=(queue&& other) {
   my_queue.rear = other.my_queue.rear;
   other.my_queue.base = nullptr;
 
+  std::cout << "队列赋值完成！（调用移动赋值运算符）" << std::endl;
+
   return *this;
 }
 
@@ -66,6 +75,8 @@ queue::~queue() {
   if (my_queue.base) {
     delete[] my_queue.base;
   }
+
+  std::cout << "队列已销毁！" << std::endl;
 }
 
 bool queue::empty() const {
