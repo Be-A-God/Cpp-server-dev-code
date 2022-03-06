@@ -115,14 +115,16 @@ int queue::top() const {
 }
 
 int queue::size() const {
-  int front = my_queue.front;
-  int rear = my_queue.rear;
-  int count = 0;
-  while (front != rear) {
-    front = (front + 1) % full_size;
-    count++;
-  }
-  return count;
+  //   int front = my_queue.front;
+  //   int rear = my_queue.rear;
+  //   int count = 0;
+  //   while (front != rear) {
+  //     front = (front + 1) % full_size;
+  //     count++;
+  //   }
+  //   return count;
+
+  return (my_queue.rear - my_queue.front + full_size) % full_size;
 }
 
 void queue::travel() const {
