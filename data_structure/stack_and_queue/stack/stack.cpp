@@ -66,6 +66,7 @@ stack::~stack() {
   if (my_stack.base) {
     delete[] my_stack.base;
   }
+  std::cout << "顺序栈已销毁！" << std::endl;
 }
 
 void stack::push(const int value) {
@@ -106,8 +107,10 @@ void stack::dec_to_bin(int dec) {
     dec /= 2;
   }
   while (!empty()) {
-    std::cout << pop() << std::endl;
+    std::cout << pop();
   }
+
+  std::cout << std::endl;
 }
 
 bool stack::palindrome(const char* str) {
