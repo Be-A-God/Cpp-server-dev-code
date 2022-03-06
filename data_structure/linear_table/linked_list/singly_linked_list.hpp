@@ -112,6 +112,11 @@ const Node<elem_type> *singly_linked_list<elem_type>::find_countdown_k(
   Node<elem_type> *fast_ptr = head_node_point->next;
   Node<elem_type> *slow_ptr = fast_ptr;
 
+  if(!fast_ptr) {
+    std::cout << "链表为空！查找失败！" << std::endl;
+    return nullptr;
+  }
+
   while (fast_ptr->next) {
     if (--k <= 0) {
       slow_ptr = slow_ptr->next;
