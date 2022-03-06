@@ -43,13 +43,15 @@ requires type_limit<elem_type> class singly_linked_list final {
   void reverse_list();
   void empty_list();
   void insert_elem(int pos, elem_type value);
-  void delete_elem(elem_type value, char null = 0);
+  void delete_elem(elem_type value, char null);
   void delete_elem(int pos);
   void travel_list() const;
   void create_head_plug();
   void create_tail_plug();
   bool is_empty() const;
   int get_length() const;
+
+  // friend std::ostream &operator<<(std::ostream &os, const Node<int> *&);
   //   void merge_order_list(singly_linked_list<elem_type> &other_list);
 
  private:
@@ -152,6 +154,7 @@ template <class elem_type>
 void singly_linked_list<elem_type>::create_head_plug() {
   int elem_nums = 0;
   std::cout << "请输入插入的元素个数：" << std::endl;
+  // TODO:元素个数判断有待完善
   while (!(std::cin >> elem_nums) && elem_nums < 1) {
     std::cout << "元素个数输入有误，请重新输入！" << std::endl;
   }
@@ -169,13 +172,14 @@ void singly_linked_list<elem_type>::create_head_plug() {
 template <class elem_type>
 void singly_linked_list<elem_type>::create_tail_plug() {
   Node<elem_type> *tail_ptr = head_node_point;
-  while (!tail_ptr->next) {
+  while (tail_ptr->next) {
     tail_ptr = tail_ptr->next;
   }
 
   int elem_nums = 0;
 
   std::cout << "请输入插入的元素个数：" << std::endl;
+  // TODO:元素个数判断有待完善
   while (!(std::cin >> elem_nums) && elem_nums < 1) {
     std::cout << "元素个数输入有误，请重新输入！" << std::endl;
   }
@@ -204,25 +208,25 @@ void singly_linked_list<elem_type>::delete_abs_repeat() {
     }
   }
 
-  return index
-         ? []() -> void { std::cout << "链表为空！无重复元素！" << std::endl; }
-         : [&]() mutable -> void {
-             pre_ptr = head_node_point;
-             int *flag = new int[index + 1]{0};
-             while (pre_ptr->next) {
-               if (!flag[pre_ptr->next->data]) {
-                 flag[pre_ptr->next->data] = 1;
-                 pre_ptr = pre_ptr->next;
-               } else {
-                 del_ptr = pre_ptr->next;
-                 pre_ptr->next = del_ptr->next;
-                 del_ptr->next = nullptr;
-                 delete del_ptr;
-               }
-             }
-             delete[] flag;
-             std::cout << "删除重复元素完成！" << std::endl;
-           };
+  if (!index) {
+    std::cout << "链表为空！无重复元素！" << std::endl;
+  } else {
+    pre_ptr = head_node_point;
+    int *flag = new int[index + 1]{0};
+    while (pre_ptr->next) {
+      if (!flag[abs(pre_ptr->next->data)]) {
+        flag[abs(pre_ptr->next->data)] = 1;
+        pre_ptr = pre_ptr->next;
+      } else {
+        del_ptr = pre_ptr->next;
+        pre_ptr->next = del_ptr->next;
+        del_ptr->next = nullptr;
+        delete del_ptr;
+      }
+    }
+    delete[] flag;
+    std::cout << "删除重复元素完成！" << std::endl;
+  }
 }
 
 template <class elem_type>
@@ -344,7 +348,8 @@ void singly_linked_list<elem_type>::travel_list() const {
   Node<elem_type> *cur_ptr = head_node_point->next;
 
   while (cur_ptr) {
-    std::cout << cur_ptr->data << '\t' << std::endl;
+    std::cout << cur_ptr->data << '\t';
     cur_ptr = cur_ptr->next;
   }
+  std::cout << std::endl;
 }
