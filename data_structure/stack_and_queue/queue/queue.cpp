@@ -130,7 +130,9 @@ void queue::travel() const {
   int rear = my_queue.rear;
 
   while (front != rear) {
-    std::cout << my_queue.base[front] << '/t';
+    std::cout << my_queue.base[front] << '\t';
     front = (front + 1) % full_size;
   }
+
+  std::cout << std::endl;
 }
