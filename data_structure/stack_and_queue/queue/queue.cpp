@@ -44,14 +44,15 @@ queue::queue(queue&& other) {
 }
 
 queue& queue::operator=(const queue& other) {
-  int front = my_queue.front = other.my_queue.front;
-  int rear = my_queue.rear = other.my_queue.rear;
+  if (&other != this) {
+    int front = my_queue.front = other.my_queue.front;
+    int rear = my_queue.rear = other.my_queue.rear;
 
-  while (front != rear) {
-    my_queue.base[front] = other.my_queue.base[front];
-    front = (front + 1) % full_size;
+    while (front != rear) {
+      my_queue.base[front] = other.my_queue.base[front];
+      front = (front + 1) % full_size;
+    }
   }
-
   std::cout << "队列赋值完成！（调用复制赋值运算符）" << std::endl;
 
   return *this;
