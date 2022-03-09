@@ -79,10 +79,12 @@ SequenList<data_type>::SequenList(SequenList<data_type> &&other)
 template <class data_type>
 SequenList<data_type> &SequenList<data_type>::operator=(
     const SequenList<data_type> &other) {
-  len = other.len;
-  linear_list = new data_type[len];
-  for (int index = 0; index < len; index++) {
-    linear_list[index] = other.linear_list[index];
+  if (&other != this) {
+    len = other.len;
+    linear_list = new data_type[len];
+    for (int index = 0; index < len; index++) {
+      linear_list[index] = other.linear_list[index];
+    }
   }
   std::cout << "复制赋值运算符" << std::endl;
   return *this;
