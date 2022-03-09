@@ -41,10 +41,12 @@ stack::stack(stack&& other) {
 }
 
 stack& stack::operator=(const stack& other) {
-  int size = other.size();
-  my_stack.top = my_stack.base + size;
-  while (--size >= 0) {
-    *(my_stack.base + size) = *(other.my_stack.base + size);
+  if (&other != this) {
+    int size = other.size();
+    my_stack.top = my_stack.base + size;
+    while (--size >= 0) {
+      *(my_stack.base + size) = *(other.my_stack.base + size);
+    }
   }
 
   return *this;
