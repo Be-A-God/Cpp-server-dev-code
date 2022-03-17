@@ -109,20 +109,24 @@ const Node<elem_type> *singly_linked_list<elem_type>::find_elem(
 template <class elem_type>
 const Node<elem_type> *singly_linked_list<elem_type>::find_countdown_k(
     int k) const {
+  
   Node<elem_type> *fast_ptr = head_node_point->next;
   Node<elem_type> *slow_ptr = fast_ptr;
 
-  if(!fast_ptr) {
+  if(!fast_ptr || k <= 0) {
     std::cout << "链表为空！查找失败！" << std::endl;
     return nullptr;
   }
 
-  while (fast_ptr->next) {
-    if (--k <= 0) {
-      slow_ptr = slow_ptr->next;
-    }
+  while (--k > 0 && fast_ptr->next) {
     fast_ptr = fast_ptr->next;
   }
+  
+  while (fast_ptr->next) {
+    fast_ptr = fast->next;
+    slow_ptr = slow->next;
+  }
+  
   return k > 0 ? nullptr : slow_ptr;
 }
 
