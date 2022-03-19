@@ -1,5 +1,5 @@
 // 内存泄漏解决： 嵌套类实现/智能指针/友元类
-// 线程安全： 静态局部变量/双检锁+原子操作
+// 线程安全： 静态局部变量/双检锁+原子操作/call_once
 
 #include <iostream>
 #include <memory>  //shared_ptr
