@@ -265,12 +265,12 @@ class Singleton_7 {
 
  private:
   Singleton_7() = default;
-  static std::shared_ptr<Singleton_7*> instance_ptr;
+  static std::shared_ptr<Singleton_7> instance_ptr;
   static std::mutex ptr_mutex;
 };
 
 std::mutex Singleton_7::ptr_mutex;
-std::shared_ptr<Singleton_7*> Singleton_7::instance_ptr = nullptr;
+std::shared_ptr<Singleton_7> Singleton_7::instance_ptr = nullptr;
 
 /* ********************************************* */
 
@@ -287,7 +287,7 @@ class Singleton_8 {
   Singleton_8& operator=(Singleton_8&&) = delete;
   ~Singleton_8() = default;
 
-  static std::shared_ptr<Singleton_8*> get_instance() {
+  static std::shared_ptr<Singleton_8> get_instance() {
     static std::once_flag flag;
     std::call_once(flag,
                    [&] { instance_ptr = std::make_shared<Singleton_8>() });
@@ -296,10 +296,10 @@ class Singleton_8 {
 
  private:
   Singleton_8() = default;
-  std::shared_ptr<Singleton_8*> instance_ptr;
+  std::shared_ptr<Singleton_8> instance_ptr;
 };
 
-std::shared_ptr<Singleton_8*> Singleton_8::instance_ptr = nullptr;
+std::shared_ptr<Singleton_8> Singleton_8::instance_ptr = nullptr;
 
 /* ********************************************* */
 
