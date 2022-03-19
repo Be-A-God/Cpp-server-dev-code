@@ -7,6 +7,7 @@
 class Calculation {
  public:
   virtual double get_result() = 0;
+  virtual ~Calculation() = default;
   double number_1;
   double number_2;
 };
