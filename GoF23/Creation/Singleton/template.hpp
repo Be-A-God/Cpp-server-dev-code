@@ -70,6 +70,8 @@ class Singleton_1 {
 class Drived_singleton_1 final : public Singleton_1<Drived_singleton_1> {
  public:
   // 外界无法调用，因为无法传递该类型参数，导致函数不匹配从而构造失败
+  // 构造函数公开，基类能够直接调用
+  // 生成该类的条件：能够访问构造函数（公开）+提供Singleton_1::token类型变量（只有基类才能）
   Drived_singleton_1(token);
   ~Drived_singleton_1() = default;
   Drived_singleton_1() = delete;
