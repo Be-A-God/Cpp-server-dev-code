@@ -253,11 +253,11 @@ class Singleton_7 {
   Singleton_7& operator=(Singleton_7&&) = delete;
   ~Singleton_7() = default;
 
-  static Singleton_7* get_instance() {
+  static std::shared_ptr<Singleton_7> get_instance() {
     if (!instance_ptr) {
       std::lock_guard<std::mutex> lock(ptr_mutex);
       if (!instance_ptr) {
-        instance_ptr = new Singleton_7;
+        instance_ptr = std::make_shared<Singleton_7>();
       }
     }
     return instance_ptr;
@@ -290,13 +290,13 @@ class Singleton_8 {
   static std::shared_ptr<Singleton_8> get_instance() {
     static std::once_flag flag;
     std::call_once(flag,
-                   [&] { instance_ptr = std::make_shared<Singleton_8>() });
+                   [&] { instance_ptr = std::make_shared<Singleton_8>(); });
     return instance_ptr;
   }
 
  private:
   Singleton_8() = default;
-  std::shared_ptr<Singleton_8> instance_ptr;
+  static std::shared_ptr<Singleton_8> instance_ptr;
 };
 
 std::shared_ptr<Singleton_8> Singleton_8::instance_ptr = nullptr;
@@ -360,7 +360,7 @@ class Singleton {
   Singleton& operator=(Singleton&&) = delete;
   ~Singleton() = default;
 
-  static Singleton get_instance() {
+  static Singleton& get_instance() {
     static Singleton instance;
     return instance;
   }
