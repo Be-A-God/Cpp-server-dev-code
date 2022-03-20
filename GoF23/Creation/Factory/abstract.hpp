@@ -1,5 +1,12 @@
 #include <iostream>
 
+// 抽象工厂类：不再只有一类抽象产品，而是有多类抽象产品；工厂对外有多类抽象产品（多个子厂）
+// 具体工厂不再是流水线，而是新的子厂
+// 每个子厂负责生产一类抽象产品，其中抽象产品里有多个具体产品，但其表面特征一样（同一品牌同一系列）
+// 子厂不再是流水线，不再对应一种具体产品，而是一个系列的抽象产品（包含多个同系列具体产品）
+// 例如：工厂->耐克子厂->耐克鞋子、耐克衣服等耐克系列抽象产品
+// 同样利用多态和继承
+
 class AbstractProductA {
  public:
   virtual ~AbstractProductA() = default;
@@ -90,7 +97,7 @@ void ClientCode(const AbstractFactory &factory) {
 
 // int main() {
 //   std::cout << "Client: Testing client code with the first factory type:\n";
-//   ConcreteFactory1 *f1 = new ConcreteFactory1();
+//   AbstractFactory *f1 = new ConcreteFactory1();
 //   ClientCode(*f1);
 //   delete f1;
 //   std::cout << std::endl;
