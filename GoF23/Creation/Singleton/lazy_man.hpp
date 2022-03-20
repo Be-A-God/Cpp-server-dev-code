@@ -86,6 +86,7 @@ class Singleton_3 {
 
   static Singleton_3* get_instance() {
     if (!instance_ptr) {
+      // 程序在 lock 的生命周期内加锁
       std::lock_guard<std::mutex> lock(ptr_mutex);
       if (!instance_ptr) {
         instance_ptr = new Singleton_3;
@@ -123,6 +124,7 @@ class Singleton_4 {
   ~Singleton_4() = default;
 
   static Singleton_4* get_instance() {
+    // 静态变量确保翻转标志保留状态
     static std::once_flag flag;
     std::call_once(flag, [&] { instance_ptr = new Singleton_4; });
     return instance_ptr;
