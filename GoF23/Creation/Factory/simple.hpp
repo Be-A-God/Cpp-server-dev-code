@@ -1,5 +1,6 @@
 // 计算器例子
 
+#include <exception>
 #include <iostream>
 
 // 抽象产品角色
@@ -29,7 +30,7 @@ class Multi : public Calculation {
 class Div : public Calculation {
   double get_result() override {
     if (number_2 == 0) {
-      throw new std::exception("除数不能为0");
+      throw new std::exception();
     }
     return number_1 / number_2;
   }
@@ -60,4 +61,4 @@ class Factory {
     }
     return calc;
   }
-}
+};
