@@ -1,6 +1,16 @@
 #include <iostream>
 #include <unordered_map>
 
+// 用一个抽象类声明 clone 方法
+// 再具体的派生类中重写该 clone 方法
+// 最后由原型工厂的成员方法调用具体原型的 clone 方法
+// 抽象原型声明一个clone方法，而具体原型实现clone方法，本质将构造函数进行封装
+// 具体意义： 这是一个创建型模式，即创建实例
+// 通过抽象原型的clone使其派生类都能够重写其clone方法，从内部封装该复制方法
+// 同时抽象原型可以提供私有数据以及修改他们方法的声明，留给派生类自定义内部数据
+// 可以拷贝类型未知的类
+// 重点就是 clone 方法的实现，个人感觉暂时想不到合适的应用场景
+
 using std::string;
 
 // Prototype Design Pattern
