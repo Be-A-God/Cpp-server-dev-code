@@ -1,6 +1,12 @@
 #include <algorithm>
 #include <iostream>
 
+// 目标对象的实现方法需要定义为虚函数
+// 多重继承时，适配器不需要传入具体原对象实例
+// 直接对目标对象方法改写，在内部调用为原对象方法
+// 创建适配器对象时无需传入参数
+// 两者都是通过继承加多态重新定义目标对象的实现，完成两个不同对象的适配
+
 /**
  * The Target defines the domain-specific interface used by the client code.
  */

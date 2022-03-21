@@ -2,6 +2,14 @@
 #include <iostream>
 #include <list>
 #include <string>
+
+// 将对象组合成树状的层次结构模式
+// 抽象的组件对象作为基类，定义统一接口Add、Remove，由子类实现添加删除操作
+// 叶结点和组合对象（枝干）派生于抽象组件对象
+// 叶结点不需要实现增删功能，枝干需要实现增删功能
+// 一般采用双向链表 list 实现增删
+// 一些不适合叶结点的操作应该进行合理判断，如下面的成员函数is_compposite
+
 /**
  * The base Component class declares common operations for both simple and
  * complex objects of a composition.

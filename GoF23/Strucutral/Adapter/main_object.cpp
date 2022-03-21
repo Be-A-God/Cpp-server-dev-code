@@ -1,6 +1,13 @@
 #include <algorithm>
 #include <iostream>
 
+// 目标对象、原对象、适配器
+// 采用多态和继承
+// 目标对象的获取方法需要为虚函数
+// 适配器派生于目标对象，在其内部对传入的原对象进行包装
+// 统一为目标对象类型
+// 实际适配过程通过具体实例适配（传入原对象到适配器）
+
 /**
  * The Target defines the domain-specific interface used by the client code.
  */
@@ -58,7 +65,7 @@ int main() {
   std::cout << "Adaptee: " << adaptee->SpecificRequest();
   std::cout << "\n\n";
   std::cout << "Client: But I can work with it via the Adapter:\n";
-  Adapter *adapter = new Adapter(adaptee);
+  Target *adapter = new Adapter(adaptee);
   ClientCode(adapter);
   std::cout << "\n";
 
