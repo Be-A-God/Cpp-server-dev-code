@@ -2,6 +2,12 @@
 /**
  * The Command interface declares a method for executing a command.
  */
+
+// Receiver可以抽象为基类，派生出接执行操作的具体类（具体接收者）
+// Commond抽象为基类，声明设置接收者和执行操作的方法接口，并在具体命令中内部关联一系列接收者
+// Invoker用户的接口，内部关联一系列命令，读取一系列命令并发布通知
+// 应用实例：饭店管理（用户、前台、后台）
+
 class Command {
  public:
   virtual ~Command() {}

@@ -5,6 +5,14 @@
  * underlying representation (list, stack, tree, etc.).
  */
 
+// Iterator 可以作为抽象基类，声明查询为空、首元素、尾元素、当前元素的方法接口
+// Iterator 派生类负责实现迭代方法，实际是对begin()、end()成员方法的封装
+// Iterator 的具体迭代实现也可以用户自定义（迭代方式通常需要泛化）
+// Iterator 的具体派生类内部对应有迭代对象的类型指针
+// 被迭代对象内部需要实现生成Iterator类对象的方法
+// Iterator 需要访问被迭代对象内部数据，因此需要将具体的迭代器声明为友元
+// 通过被迭代对象调用生成的迭代器实现内部数据的封装（自定义类比较合适）
+
 #include <iostream>
 #include <string>
 #include <vector>

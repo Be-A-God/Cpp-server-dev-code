@@ -4,6 +4,17 @@
  * The base Component interface defines operations that can be altered by
  * decorators.
  */
+
+// 抽象组件是将需要装饰的具体物泛化成一种类型
+// 抽象类，所有装饰器都派生于他，原类也继承于他
+// 通过多态实现装饰：每个装饰类都需要声明一个基类的指针，作为接口
+// 抽象装饰类完成了装饰链的传递！！！
+// 难点在于装饰链（等进一步理解）
+// 具体装饰可以通过控制装饰器对象生成顺序任意搭配
+// return this->component_->Operation();
+// return "ConcreteDecoratorA(" + Decorator::Operation() + ")";
+// 以上两句是装饰链的核心
+
 class Component {
  public:
   virtual ~Component() {}
