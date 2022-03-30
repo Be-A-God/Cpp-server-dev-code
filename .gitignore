@@ -38,3 +38,5 @@
 CodeHistory/*
 
 .idea/*
+
+cmake-build-debug/*
