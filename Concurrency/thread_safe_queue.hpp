@@ -10,7 +10,7 @@
 #include <mutex>
 #include <thread>
 
-template<class T>
+template <class T>
 class thread_safe_queue {
  public:
   thread_safe_queue();
@@ -52,38 +52,38 @@ class thread_safe_queue {
   std::unique_ptr<node> try_pop_head(T &value);
 };
 
-template<class T>
+template <class T>
 thread_safe_queue<T>::thread_safe_queue()
     : head(new thread_safe_queue::node), tail(head.get()) {}
 
-template<class T>
+template <class T>
 std::shared_ptr<T> thread_safe_queue<T>::try_pop() {
-//  辅助函数内上锁,队列不为空则返回队头指针,队列为空则返回空内容的unique_ptr
+  //  辅助函数内上锁,队列不为空则返回队头指针,队列为空则返回空内容的unique_ptr
   std::unique_ptr<node> old_head = try_pop_head();
   return old_head ? old_head->data : std::shared_ptr<T>();
 }
 
-template<class T>
+template <class T>
 bool thread_safe_queue<T>::try_pop(T &value) {
   std::unique_ptr<node> const old_head = try_pop_head(value);
   return old_head;
 }
 
-template<class T>
+template <class T>
 std::shared_ptr<T> thread_safe_queue<T>::wait_and_pop() {
-//  前面的辅助函数已上锁,同时确保队列中数据不为空,此处只需要调用返回即可
+  //  前面的辅助函数已上锁,同时确保队列中数据不为空,此处只需要调用返回即可
   std::unique_ptr<node> const old_head = wait_pop_head();
   return old_head->data;
-//  队头指针离开作用域时自动销毁其内存(两个指针所占的内存,但指针所指的内存仍旧可达)
+  //  队头指针离开作用域时自动销毁其内存(两个指针所占的内存,但指针所指的内存仍旧可达)
 }
 
-template<class T>
+template <class T>
 void thread_safe_queue<T>::wait_and_pop(T &value) {
-//  辅助函数上锁,确保队列不为空,同时通过引用将数据传送回去
+  //  辅助函数上锁,确保队列不为空,同时通过引用将数据传送回去
   std::unique_ptr<node> const old_head = wait_pop_head(value);
 }
 
-template<class T>
+template <class T>
 void thread_safe_queue<T>::push(T new_value) {
   std::shared_ptr<T> new_data(std::make_shared<T>(std::move(new_value)));
   std::unique_ptr<node> p(new node);
@@ -99,22 +99,23 @@ void thread_safe_queue<T>::push(T new_value) {
   data_cond.notify_one();
 }
 
-template<class T>
+template <class T>
 bool thread_safe_queue<T>::empty() {
   std::lock_guard<std::mutex> head_lock(head_mutex);
   return (head.get() == get_tail());
 }
 
-template<class T>
-std::unique_ptr<node> thread_safe_queue<T>::pop_head() {
-//  将队头指针更新并返回旧的队头指针
-//  该函数为辅助函数,调用只提供内部接口,且调用前有加锁操作故此处无需加锁
+template <class T>
+std::unique_ptr<typename thread_safe_queue<T>::node>
+thread_safe_queue<T>::pop_head() {
+  //  将队头指针更新并返回旧的队头指针
+  //  该函数为辅助函数,调用只提供内部接口,且调用前有加锁操作故此处无需加锁
   std::unique_ptr<node> old_head = std::move(head);
   head = std::move(old_head->next);
   return old_head;
 }
 
-template<class T>
+template <class T>
 std::unique_lock<std::mutex> thread_safe_queue<T>::wait_for_data() {
   // 等待队列不为空,即有数据加入
   std::unique_lock<std::mutex> head_lock(head_mutex);
@@ -122,34 +123,38 @@ std::unique_lock<std::mutex> thread_safe_queue<T>::wait_for_data() {
   return std::move(head_lock);
 }
 
-template<class T>
-std::unique_ptr<node> thread_safe_queue<T>::wait_pop_head() {
+template <class T>
+std::unique_ptr<typename thread_safe_queue<T>::node>
+thread_safe_queue<T>::wait_pop_head() {
   std::unique_lock<std::mutex> head_lock(wait_for_data());
-//  返回锁时证明队列中已有数据
-//  此时返回队头指针
+  //  返回锁时证明队列中已有数据
+  //  此时返回队头指针
   return pop_head();
 }
 
-template<class T>
-std::unique_ptr<node> thread_safe_queue<T>::wait_pop_head(T &value) {
+template <class T>
+std::unique_ptr<typename thread_safe_queue<T>::node>
+thread_safe_queue<T>::wait_pop_head(T &value) {
   std::unique_lock<std::mutex> head_lock(wait_for_data());
-//  返回元素值(通过引用)
+  //  返回元素值(通过引用)
   value = std::move(*head->data);
   return pop_head();
 }
 
-template<class T>
-std::unique_ptr<node> thread_safe_queue<T>::try_pop_head() {
+template <class T>
+std::unique_ptr<typename thread_safe_queue<T>::node>
+thread_safe_queue<T>::try_pop_head() {
   std::lock_guard<std::mutex> head_lock(head_mutex);
   if (head.get() == get_tail()) {
     return std::unique_ptr<node>();
   }
-//  队列不为空则返回指向队头的指针
+  //  队列不为空则返回指向队头的指针
   return pop_head();
 }
 
-template<class T>
-std::unique_ptr<node> thread_safe_queue<T>::try_pop_head(T &value) {
+template <class T>
+std::unique_ptr<typename thread_safe_queue<T>::node>
+thread_safe_queue<T>::try_pop_head(T &value) {
   std::lock_guard<std::mutex> head_lock(head_mutex);
   if (head.get() == get_tail()) {
     return std::unique_ptr<node>();
@@ -158,8 +163,8 @@ std::unique_ptr<node> thread_safe_queue<T>::try_pop_head(T &value) {
   return pop_head();
 }
 
-template<class T>
-node *thread_safe_queue<T>::get_tail() {
+template <class T>
+typename thread_safe_queue<T>::node *thread_safe_queue<T>::get_tail() {
   std::lock_guard<std::mutex> tail_lock(tail_mutex);
   return tail;
 }
